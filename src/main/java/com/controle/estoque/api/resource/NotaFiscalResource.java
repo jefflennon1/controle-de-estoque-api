@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.controle.estoque.api.model.NotaFiscal;
-import com.controle.estoque.api.model.Produto;
 import com.controle.estoque.api.service.NotaFiscalService;
 
 @RestController
@@ -41,8 +40,8 @@ public class NotaFiscalResource {
 				produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> buscarPorId(@RequestParam("id") Long id){
 	 try {
-		 Produto produto = service.buscarPorId(id); 
-		 return produto == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(produto);
+		 NotaFiscal notaFiscal = service.buscarPorId(id); 
+		 return notaFiscal == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(notaFiscal);
 			
 		} catch (Exception e) {
 			 return ResponseEntity.badRequest().body(e.getMessage());
@@ -55,7 +54,7 @@ public class NotaFiscalResource {
 	public ResponseEntity<?> salvar(@RequestBody NotaFiscal notaFiscal){
 	 try {
 		 service.salvar(notaFiscal); 
-		 URI location = URI.create(String.format("/nota-fiscal/buscar-nota-fiscal?id=%s", notaFiscal.getNumero()));
+		 URI location = URI.create(String.format("/nota-fiscal/buscar-nota-fiscal?id=%s", notaFiscal.getId()));
 		 return ResponseEntity.created(location).build();
 			
 		} catch (Exception e) {
@@ -69,7 +68,7 @@ public class NotaFiscalResource {
 	public ResponseEntity<?> atualizar(@RequestBody NotaFiscal notaFiscal){
 	 try {
 		 service.atualizar(notaFiscal); 
-		 URI location = URI.create(String.format("/nota-fiscal/buscar-nota-fiscal?id=%s", notaFiscal.getNumero()));
+		 URI location = URI.create(String.format("/nota-fiscal/buscar-nota-fiscal?id=%s", notaFiscal.getId()));
 		 return ResponseEntity.ok().location(location).build();
 			
 		} catch (Exception e) {

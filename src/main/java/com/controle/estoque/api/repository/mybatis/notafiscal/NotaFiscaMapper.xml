@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper">
+   
+    <resultMap id="ProdutoMapper" type="NotaFiscal">
+        <id column="id" 				property="id" 				jdbcType="INTEGER"/>
+        <result column="nome" 			property="nome" 			jdbcType="VARCHAR"/>
+        <result column="descricao" 		property="descricao" 		jdbcType="VARCHAR"/>
+    </resultMap>
+ 
+	<update id="atualizar" parameterType="NotaFiscal">
+	   	UPDATE NOTA_FISCAL_ELETRONICA SET 
+		DATA_EMISSAO = 			#{notafiscal.dataEmissao},
+		EMINENTE =  			#{notafiscal.eminente},
+		DESTINATARIO =  		#{notafiscal.destinatario},
+		VALOR_TOTAL =  			#{notafiscal.valorTotal}
+		WHERE NUMERO_NOTA =  	#{notafiscal.numero}
+	</update> 
+	
+	<select id="buscarPorId" parameterType="Long">
+		SELECT * FROM NOTA_FISCAL_ELETRONICA WHERE ID = #{id}
+	</select>
+	
+	<select id="buscarPorNumero" parameterType="Long">
+		SELECT * FROM NOTA_FISCAL_ELETRONICA WHERE NUMERO = #{notafiscal.numero}
+	</select>
+	
+	<insert id="salvarItemNotaFiscal" parameterType="Produto">
+		INSERT INTO ITENS_ENTRADA_NOTA_FISCAL
+		(ID_NOTA_FISCAL, CODIGO_PRODUTO, ID_UNIDADE_MEDIDA, QUANTIDADE, VALOR_UNITARIO)
+		VALUES 
+		(#{produto.numeroNotaFiscal}, #{produto.id}, #{produto.unidadeDeMedida.id}, #{produto.quantidade}, #{produto.quantidade})
+	</insert>
+	
+	
+</mapper>

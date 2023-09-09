@@ -3,18 +3,44 @@ package com.controle.estoque.api.model;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity(name = "NOTA_FISCAL_ELETRONICA")
 public class NotaFiscal {
 	
+		 
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@Column(name = "ID")
+		@JsonProperty(value = "ID")
+		private Long id;
+		
+		@Column(name = "NUMERO")
+		@JsonProperty(value = "numero")
 	 	private Long numero;
 	 	
+		@Column(name = "NUMERO")
+		@JsonProperty(value = "dataEmissao")
 	    private Date dataEmissao;
 	    
+		@Column(name = "EMINENTE")
+		@JsonProperty(value = "emitente")
 	    private String emitente;
 	    
+		@Column(name = "DESTINATARIO")
+		@JsonProperty(value = "destinatario")
 	    private String destinatario;
 	    
 	    private List<Produto> itens;
 	    
+	    @Column(name = "VALOR_TOTAL")
+		@JsonProperty(value = "valorTotal")
 	    private double valorTotal;
 	    
 	    
@@ -78,7 +104,21 @@ public class NotaFiscal {
 	        this.valorTotal = valorTotal;
 	    }
 	    
-	    // Método para calcular o valor total com base nos itens
+	    
+	    
+	    public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+		public void setNumero(Long numero) {
+			this.numero = numero;
+		}
+
+		// Método para calcular o valor total com base nos itens
 	    private void calcularValorTotal() {
 	        this.valorTotal = 0;
 	        for (Produto item : itens) {

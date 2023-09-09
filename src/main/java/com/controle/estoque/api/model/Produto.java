@@ -55,9 +55,9 @@ public class Produto {
 	private Boolean ativo = false;
 	
 	@Transient
-	//@Column(name = "NUMERO_NOTA_FISCAL")
+	@Column(name = "NUMERO_NOTA_FISCAL")
 	@JsonProperty(value = "numeroNotaFiscal")
-	private String numeroNotaFiscal;
+	private Long numeroNotaFiscal;
 	
 	@Column(name = "SALDO_EM_ESTOQUE")
 	@JsonProperty(value = "saldoEmEstoque")
@@ -137,11 +137,11 @@ public class Produto {
 		this.ativo = ativo;
 	}
 
-	public String getNumeroNotaFiscal() {
+	public Long getNumeroNotaFiscal() {
 		return numeroNotaFiscal;
 	}
 
-	public void setNumeroNotaFiscal(String numeroNotaFiscal) {
+	public void setNumeroNotaFiscal(Long numeroNotaFiscal) {
 		this.numeroNotaFiscal = numeroNotaFiscal;
 	}
 
