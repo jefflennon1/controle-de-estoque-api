@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper">
+   
+    <resultMap id="ProdutoMapper" type="Produto">
+        <id column="id" 				property="id" 				jdbcType="INTEGER"/>
+        <result column="nome" 			property="nome" 			jdbcType="VARCHAR"/>
+        <result column="descricao" 		property="descricao" 		jdbcType="VARCHAR"/>
+    </resultMap>
+ 
+	<update id="atualizar" parameterType="Produto">
+	    UPDATE PRODUTOS 
+	    SET
+	    SKU= #{produto.SKU},
+	    NOME= #{produto.nome},
+	    DESCRICAO= #{produto.descricao},
+	    CATEGORIA_ID= #{produto.categoria.id},
+	    UNIDADE_MEDIDA_ID= #{produto.unidadeDeMedida.id},
+	    VALOR= #{produto.valor},
+	    ATIVO= #{produto.ativo},
+	    SALDO_EM_ESTOQUE= #{produto.saldoEmEstoque}
+	    WHERE ID= #{produto.id}
+	</update> 
+</mapper>
