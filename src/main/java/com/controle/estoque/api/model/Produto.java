@@ -55,7 +55,7 @@ public class Produto {
 	private Boolean ativo = false;
 	
 	@Transient
-	@Column(name = "NUMERO_NOTA_FISCAL")
+	//@Column(name = "NUMERO_NOTA_FISCAL")
 	@JsonProperty(value = "numeroNotaFiscal")
 	private Long numeroNotaFiscal;
 	

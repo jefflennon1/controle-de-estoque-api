@@ -1,5 +1,7 @@
 package com.controle.estoque.api.repository.mybatis.notafiscal;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,4 +18,6 @@ public interface NotaFiscalMapper {
 	public void atualizar(@Param("notafiscal") NotaFiscal notafiscal);
 
 	public void salvarItemNotaFiscal(@Param("produto") Produto Produto);
+
+	public List<NotaFiscal> listar();
 }

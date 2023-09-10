@@ -3,10 +3,28 @@
 
 <mapper namespace="com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper">
    
-    <resultMap id="ProdutoMapper" type="Produto">
-        <id column="id" 				property="id" 				jdbcType="INTEGER"/>
-        <result column="nome" 			property="nome" 			jdbcType="VARCHAR"/>
-        <result column="descricao" 		property="descricao" 		jdbcType="VARCHAR"/>
+    <resultMap id="ProdutoDefault" type="Produto">
+        <id column="ID" 								property="id" 					jdbcType="INTEGER"/>
+        <result column="NOME" 							property="nome" 				jdbcType="VARCHAR"/> 
+        <result column="DESCRICAO" 						property="descricao" 			jdbcType="VARCHAR"/>
+        <result column="QUANTIDADE" 					property="quantidade" 			jdbcType="VARCHAR"/>
+        <result column="VALOR" 							property="valor" 				jdbcType="VARCHAR"/>
+        <result column="ATIVO" 							property="ativo" 				jdbcType="VARCHAR"/> 
+        <result column="SALDO_EM_ESTOQUE" 				property="saldoEmEstoque" 		jdbcType="VARCHAR"/> 
+        
+        <association property="categoria" 		column="CATEGORIA_ID" 		select="selectUnidadeDeMedidaProduto"/>
+        <association property="unidadeDeMedida" column="UNIDADE_MEDIDA_ID" 	select="selectCategoriasProduto"/>
+    </resultMap>
+    
+    <resultMap id="resultCategoria" type="Categoria">
+        <id column="ID" 				property="id" 				jdbcType="INTEGER"/>
+        <result column="NOME" 			property="nome" 			jdbcType="VARCHAR"/> 
+        <result column="DESCRICAO" 		property="descricao" 		jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <resultMap id="resultUnidadeDeMedida" type="UnidadeDeMedida">
+        <id column="ID" 				property="id" 				jdbcType="INTEGER"/>
+        <result column="DESCRICAO" 		property="descricao" 		jdbcType="VARCHAR"/>
     </resultMap>
  
 	<update id="atualizar" parameterType="Produto">
@@ -22,4 +40,18 @@
 	    SALDO_EM_ESTOQUE= #{produto.saldoEmEstoque}
 	    WHERE ID= #{produto.id}
 	</update> 
+	
+	<select id="listarProdutosPorid" resultMap="ProdutoDefault">
+		SELECT * 
+		FROM PRODUTOS P 
+		WHERE P.ID = #{id}
+	</select>
+	
+	<select id="selectCategoriasProduto" resultMap="resultCategoria">
+		SELECT * FROM CATEGORIAS WHERE ID= #{id}
+	</select>
+	
+	<select id="selectUnidadeDeMedidaProduto" resultMap="resultCategoria">
+		SELECT * FROM UNIDADES_DE_MEDIDA WHERE ID= #{id}
+	</select>
 </mapper>

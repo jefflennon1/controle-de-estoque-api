@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "NOTA_FISCAL_ELETRONICA")
 public class NotaFiscal {
@@ -21,11 +22,11 @@ public class NotaFiscal {
 		@JsonProperty(value = "ID")
 		private Long id;
 		
-		@Column(name = "NUMERO")
+		@Column(name = "NUMERO_NOTA")
 		@JsonProperty(value = "numero")
 	 	private Long numero;
 	 	
-		@Column(name = "NUMERO")
+		@Column(name = "DATA_EMISSAO")
 		@JsonProperty(value = "dataEmissao")
 	    private Date dataEmissao;
 	    
@@ -37,6 +38,7 @@ public class NotaFiscal {
 		@JsonProperty(value = "destinatario")
 	    private String destinatario;
 	    
+		@OneToMany(targetEntity = Produto.class)
 	    private List<Produto> itens;
 	    
 	    @Column(name = "VALOR_TOTAL")
@@ -45,14 +47,7 @@ public class NotaFiscal {
 	    
 	    
 	   
-	    public NotaFiscal(long numero, Date dataEmissao, String emitente, String destinatario, List<Produto> itens) {
-	        this.numero = numero;
-	        this.dataEmissao = dataEmissao;
-	        this.emitente = emitente;
-	        this.destinatario = destinatario;
-	        this.itens = itens;
-	        this.calcularValorTotal();
-	    }
+	  
 	    
 	    // Métodos getters e setters
 	    
@@ -119,7 +114,7 @@ public class NotaFiscal {
 		}
 
 		// Método para calcular o valor total com base nos itens
-	    private void calcularValorTotal() {
+	    public void calcularValorTotal() {
 	        this.valorTotal = 0;
 	        for (Produto item : itens) {
 	            this.valorTotal += item.getValor();

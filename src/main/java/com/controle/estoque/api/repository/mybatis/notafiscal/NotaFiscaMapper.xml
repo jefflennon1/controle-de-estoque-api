@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper">
+<mapper namespace="com.controle.estoque.api.repository.mybatis.notafiscal.NotaFiscalMapper">
    
-    <resultMap id="ProdutoMapper" type="NotaFiscal">
-        <id column="id" 				property="id" 				jdbcType="INTEGER"/>
-        <result column="nome" 			property="nome" 			jdbcType="VARCHAR"/>
-        <result column="descricao" 		property="descricao" 		jdbcType="VARCHAR"/>
+    <resultMap id="NotaFiscalDefault" type="NotaFiscal">
+        <id column="ID" 						property="id" 				jdbcType="INTEGER"/>
+        <result column="NUMERO_NOTA" 			property="numero" 			jdbcType="BIGINT"/>
+        <result column="DATA_EMISSAO" 		 	property="descricao" 		jdbcType="DATE"/>
+        <result column="EMINENTE" 		 		property="emitente" 		jdbcType="VARCHAR"/>
+        <result column="DESTINATARIO" 		 	property="destinatario" 	jdbcType="VARCHAR"/>
+        <result column="VALOR_TOTAL" 		 	property="valorTotal" 		jdbcType="BIGINT"/>
+       
+       <collection property="itens" column="CODIGO_PRODUTO" javaType="java.util.List" select="package com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper.listarProdutosPorid"></collection>
+<!--        <association 	property="itens" 	column="CODIGO_PRODUTO" 	javaType="java.util.List" select="package com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper.listarProdutosPorid"/>-->
     </resultMap>
- 
+     
 	<update id="atualizar" parameterType="NotaFiscal">
 	   	UPDATE NOTA_FISCAL_ELETRONICA SET 
 		DATA_EMISSAO = 			#{notafiscal.dataEmissao},
@@ -24,9 +30,14 @@
 	
 	<select id="buscarPorNumero" parameterType="Long">
 		SELECT * FROM NOTA_FISCAL_ELETRONICA WHERE NUMERO = #{notafiscal.numero}
+	</select> 
+	
+	<select id="listar" resultMap="NotaFiscalDefault">
+		SELECT * FROM NOTA_FISCAL_ELETRONICA				
 	</select>
 	
-	<insert id="salvarItemNotaFiscal" parameterType="Produto">
+	
+	<insert id="salvarItemNotaFiscal" parameterType="map ">
 		INSERT INTO ITENS_ENTRADA_NOTA_FISCAL
 		(ID_NOTA_FISCAL, CODIGO_PRODUTO, ID_UNIDADE_MEDIDA, QUANTIDADE, VALOR_UNITARIO)
 		VALUES 

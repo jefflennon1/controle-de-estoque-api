@@ -13,6 +13,7 @@
 <!--        classes proprias:-->
         <typeAlias type="com.controle.estoque.api.model.Produto" 		alias="Produto" />
         <typeAlias type="com.controle.estoque.api.model.NotaFiscal" 	alias="NotaFiscal" />
+         <typeAlias type="com.controle.estoque.api.model.Categoria" 	alias="Categoria" />
         
     </typeAliases>
 </configuration>
