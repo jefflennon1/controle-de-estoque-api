@@ -10,7 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 @Entity(name = "NOTA_FISCAL_ELETRONICA")
 public class NotaFiscal {
@@ -38,7 +40,8 @@ public class NotaFiscal {
 		@JsonProperty(value = "destinatario")
 	    private String destinatario;
 	    
-		@OneToMany(targetEntity = Produto.class)
+		@Transient
+		//@OneToMany(targetEntity = Produto.class) 
 	    private List<Produto> itens;
 	    
 	    @Column(name = "VALOR_TOTAL")

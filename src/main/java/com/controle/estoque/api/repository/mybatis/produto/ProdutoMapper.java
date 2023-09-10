@@ -13,4 +13,8 @@ public interface ProdutoMapper {
 	public void atualizar(@Param("produto") Produto produto);
 	
 	public List<Produto> listarProdutosPorid(@Param("id") Long id);
+	
+	public List<Produto> listarProdutos();
+	
+	public List<Produto> carregarProdutosDaNotaFiscal(@Param("id")  Long id);
 }

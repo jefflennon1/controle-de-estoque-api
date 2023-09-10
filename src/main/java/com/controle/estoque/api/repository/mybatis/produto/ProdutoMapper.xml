@@ -12,8 +12,8 @@
         <result column="ATIVO" 							property="ativo" 				jdbcType="VARCHAR"/> 
         <result column="SALDO_EM_ESTOQUE" 				property="saldoEmEstoque" 		jdbcType="VARCHAR"/> 
         
-        <association property="categoria" 		column="CATEGORIA_ID" 		select="selectUnidadeDeMedidaProduto"/>
-        <association property="unidadeDeMedida" column="UNIDADE_MEDIDA_ID" 	select="selectCategoriasProduto"/>
+<!--        <association property="categoria" 		column="CATEGORIA_ID" 		select="selectCategoriasProduto"/>-->
+<!--        <association property="unidadeDeMedida" column="UNIDADE_MEDIDA_ID" 	select="selectUnidadeDeMedidaProduto"/>-->
     </resultMap>
     
     <resultMap id="resultCategoria" type="Categoria">
@@ -41,9 +41,20 @@
 	    WHERE ID= #{produto.id}
 	</update> 
 	
-	<select id="listarProdutosPorid" resultMap="ProdutoDefault">
+	<select id="listarProdutosPorid" resultMap="ProdutoDefault" parameterType="Long">
 		SELECT * 
 		FROM PRODUTOS P 
+		WHERE P.ID = #{id}
+	</select>
+	
+	<select id="listarProdutos" resultMap="ProdutoDefault">
+		SELECT * 
+		FROM PRODUTOS 
+	</select>
+	
+	<select id="carregarProdutosDaNotaFiscal" resultMap="ProdutoDefault" parameterType="Long">
+		SELECT * FROM ITENS_ENTRADA_NOTA_FISCAL IT
+		INNER JOIN PRODUTOS P ON P.ID  = IT.CODIGO_PRODUTO 
 		WHERE P.ID = #{id}
 	</select>
 	

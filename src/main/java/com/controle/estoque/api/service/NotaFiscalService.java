@@ -22,7 +22,7 @@ public class NotaFiscalService {
 	
 
 	public List<NotaFiscal> listar() { 
-		return mapper.listar();
+		return mapper.listarNotas();
 	}
 
 	public NotaFiscal buscarPorId(Long id) { 

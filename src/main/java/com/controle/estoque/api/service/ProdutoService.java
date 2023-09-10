@@ -19,7 +19,7 @@ public class ProdutoService {
 	private ProdutoMapper mapper;
 	
 	public List<Produto> listar(){
-		return repository.findAll();
+		return mapper.listarProdutos();
 	}
 
 	public Produto buscarPorId(Long id) {  

@@ -20,4 +20,6 @@ public interface NotaFiscalMapper {
 	public void salvarItemNotaFiscal(@Param("produto") Produto Produto);
 
 	public List<NotaFiscal> listar();
+
+	public List<NotaFiscal> listarNotas();
 }

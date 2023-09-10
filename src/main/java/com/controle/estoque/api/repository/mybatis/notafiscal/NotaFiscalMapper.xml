@@ -6,13 +6,12 @@
     <resultMap id="NotaFiscalDefault" type="NotaFiscal">
         <id column="ID" 						property="id" 				jdbcType="INTEGER"/>
         <result column="NUMERO_NOTA" 			property="numero" 			jdbcType="BIGINT"/>
-        <result column="DATA_EMISSAO" 		 	property="descricao" 		jdbcType="DATE"/>
+        <result column="DATA_EMISSAO" 		 	property="dataEmissao" 		jdbcType="DATE"/>
         <result column="EMINENTE" 		 		property="emitente" 		jdbcType="VARCHAR"/>
         <result column="DESTINATARIO" 		 	property="destinatario" 	jdbcType="VARCHAR"/>
         <result column="VALOR_TOTAL" 		 	property="valorTotal" 		jdbcType="BIGINT"/>
        
-       <collection property="itens" column="CODIGO_PRODUTO" javaType="java.util.List" select="package com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper.listarProdutosPorid"></collection>
-<!--        <association 	property="itens" 	column="CODIGO_PRODUTO" 	javaType="java.util.List" select="package com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper.listarProdutosPorid"/>-->
+       <association property="itens" column="ID" select="com.controle.estoque.api.repository.mybatis.produto.ProdutoMapper.carregarProdutosDaNotaFiscal"/>
     </resultMap>
      
 	<update id="atualizar" parameterType="NotaFiscal">
@@ -32,12 +31,11 @@
 		SELECT * FROM NOTA_FISCAL_ELETRONICA WHERE NUMERO = #{notafiscal.numero}
 	</select> 
 	
-	<select id="listar" resultMap="NotaFiscalDefault">
+	<select id="listarNotas" resultMap="NotaFiscalDefault" >
 		SELECT * FROM NOTA_FISCAL_ELETRONICA				
-	</select>
+	</select> 
 	
-	
-	<insert id="salvarItemNotaFiscal" parameterType="map ">
+	<insert id="salvarItemNotaFiscal" parameterType="map">
 		INSERT INTO ITENS_ENTRADA_NOTA_FISCAL
 		(ID_NOTA_FISCAL, CODIGO_PRODUTO, ID_UNIDADE_MEDIDA, QUANTIDADE, VALOR_UNITARIO)
 		VALUES 
